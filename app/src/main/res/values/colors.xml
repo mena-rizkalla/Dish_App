@@ -21,4 +21,9 @@
     <color name="secondary_color">#81C784</color>
     <color name="secondary_dark_color">#519657</color>
     <color name="secondary_light_color">#B2FAB4</color>
+
+    <color name="blue_grey_700">#37474f</color>
+    <color name="grey_900">#212121</color>
+
+    <color name="dish_image_background">#E1E1E1</color>
 </resources>

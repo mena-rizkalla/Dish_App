@@ -3,4 +3,16 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+
+    <string name="add_dish">add dish</string>
+
+
+    <string name="image_contentDescription">image</string>
+    <string name="title">Title</string>
+    <string name="type">Type</string>
+    <string name="category">Category</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="cooking_time_in_minutes">Cooking Time In Minutes</string>
+    <string name="direction_to_cook">Direction To Cook</string>
+    <string name="lbl_add_dish">ADD DISH</string>
 </resources>
