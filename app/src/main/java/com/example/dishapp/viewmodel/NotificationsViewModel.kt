@@ -1,4 +1,4 @@
-package com.example.dishapp.ui.notifications
+package com.example.dishapp.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

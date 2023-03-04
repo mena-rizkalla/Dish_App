@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.dishapp.ui.home.HomeFragment"
+        android:name="com.example.dishapp.view.fragments.AllDishesFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_all_dishes" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
-        android:name="com.example.dishapp.ui.dashboard.DashboardFragment"
+        android:name="com.example.dishapp.view.fragments.DashboardFragment"
         android:label="@string/title_dashboard"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_notifications"
-        android:name="com.example.dishapp.ui.notifications.NotificationsFragment"
+        android:name="com.example.dishapp.view.fragments.NotificationsFragment"
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_notifications" />
 </navigation>

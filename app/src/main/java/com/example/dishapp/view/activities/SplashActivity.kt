@@ -1,4 +1,4 @@
-package com.example.dishapp
+package com.example.dishapp.view.activities
 
 import android.content.Intent
 import android.os.Build
@@ -10,6 +10,7 @@ import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivitySplashBinding
 
 class SplashActivity : AppCompatActivity() {
@@ -30,7 +31,7 @@ class SplashActivity : AppCompatActivity() {
             )
         }
 
-        val anim = AnimationUtils.loadAnimation(this,R.anim.anim_splash)
+        val anim = AnimationUtils.loadAnimation(this, R.anim.anim_splash)
         binding.appName.animation = anim
 
         val splashAnimation = AnimationUtils.loadAnimation(this, R.anim.anim_splash)
