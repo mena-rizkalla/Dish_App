@@ -15,4 +15,11 @@
     <string name="cooking_time_in_minutes">Cooking Time In Minutes</string>
     <string name="direction_to_cook">Direction To Cook</string>
     <string name="lbl_add_dish">ADD DISH</string>
+
+    <string name="title_select_image_action">Select Image Action</string>
+
+    <string name="camera">Camera</string>
+
+    <string name="gallery">Gallery</string>
+    <string name="title_select_image">Select image action</string>
 </resources>
