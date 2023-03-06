@@ -70,7 +70,6 @@ class AddUpdateDishActivity : AppCompatActivity() {
         binding.tvGallery.setOnClickListener {
             Dexter.withContext(this).withPermissions(
                 Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.CAMERA
             ).withListener(object : MultiplePermissionsListener {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
