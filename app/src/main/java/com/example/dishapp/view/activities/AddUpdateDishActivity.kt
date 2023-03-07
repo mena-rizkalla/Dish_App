@@ -5,14 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.Manifest
 import android.Manifest.permission_group.CAMERA
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.Settings
 import android.webkit.PermissionRequest
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
 import com.karumi.dexter.Dexter
@@ -52,12 +56,8 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(
-                                this@AddUpdateDishActivity,
-                                "you have permission now",
-                                Toast.LENGTH_SHORT
-                            ).show()
-
+                            val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                            startActivityForResult(intent, CAMERA)
                         }
                     }
                 }
@@ -99,10 +99,8 @@ class AddUpdateDishActivity : AppCompatActivity() {
                     }
                 }).onSameThread().check()
             dialog.dismiss()
-
-            dialog.show()
-
         }
+        dialog.show()
     }
 
     private fun showDialogForPermissions(){
@@ -119,5 +117,23 @@ class AddUpdateDishActivity : AppCompatActivity() {
             }.setNegativeButton("Cancel"){
                     dialog, _ -> dialog.dismiss()
             }.show()
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == CAMERA){
+                data?.let {
+                    val image : Bitmap = data.extras!!.get("data") as Bitmap
+                    binding.ivDishImage.setImageBitmap(image)
+                    binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
+                }
+            }
+        }
+    }
+
+    companion object {
+        private const val CAMERA = 1;
     }
 }
