@@ -4,7 +4,6 @@ import android.app.Dialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.Manifest
-import android.Manifest.permission_group.CAMERA
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
@@ -13,14 +12,12 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.Settings
-import android.webkit.PermissionRequest
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
 import com.karumi.dexter.Dexter
-import com.karumi.dexter.DexterBuilder
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
