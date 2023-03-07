@@ -19,7 +19,10 @@ import com.karumi.dexter.Dexter
 import com.karumi.dexter.DexterBuilder
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.single.PermissionListener
 
 class AddUpdateDishActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddUpdateDishBinding
@@ -49,7 +52,11 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
                     report?.let {
                         if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(this@AddUpdateDishActivity,"you have permission now",Toast.LENGTH_SHORT).show()
+                            Toast.makeText(
+                                this@AddUpdateDishActivity,
+                                "you have permission now",
+                                Toast.LENGTH_SHORT
+                            ).show()
 
                         }
                     }
@@ -68,31 +75,34 @@ class AddUpdateDishActivity : AppCompatActivity() {
 
 
         binding.tvGallery.setOnClickListener {
-            Dexter.withContext(this).withPermissions(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-            ).withListener(object : MultiplePermissionsListener {
-                override fun onPermissionsChecked(report: MultiplePermissionsReport?) {
-                    report?.let {
-                        if (report.areAllPermissionsGranted()) {
-                            Toast.makeText(this@AddUpdateDishActivity,"you have permission now",Toast.LENGTH_SHORT).show()
+            Dexter.withContext(this).withPermission(
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            )
+                .withListener(object : PermissionListener {
+                    override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
 
-                        }
                     }
-                }
 
-                override fun onPermissionRationaleShouldBeShown(
-                    p0: MutableList<com.karumi.dexter.listener.PermissionRequest>?,
-                    p1: PermissionToken?
-                ) {
-                    showDialogForPermissions()
-                }
+                    override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
+                        Toast.makeText(
+                            this@AddUpdateDishActivity,
+                            "You have denied the storage permission",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
 
-            }).onSameThread().check()
+                    override fun onPermissionRationaleShouldBeShown(
+                        p0: com.karumi.dexter.listener.PermissionRequest?,
+                        p1: PermissionToken?
+                    ) {
+                        showDialogForPermissions()
+                    }
+                }).onSameThread().check()
             dialog.dismiss()
+
+            dialog.show()
+
         }
-
-        dialog.show()
-
     }
 
     private fun showDialogForPermissions(){
