@@ -77,7 +77,8 @@ class AddUpdateDishActivity : AppCompatActivity() {
             )
                 .withListener(object : PermissionListener {
                     override fun onPermissionGranted(p0: PermissionGrantedResponse?) {
-
+                        val intent = Intent(Intent.ACTION_PICK,MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                        startActivityForResult(intent, GALLERY)
                     }
 
                     override fun onPermissionDenied(p0: PermissionDeniedResponse?) {
@@ -127,10 +128,19 @@ class AddUpdateDishActivity : AppCompatActivity() {
                     binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
                 }
             }
+
+            if (requestCode == GALLERY){
+                data?.let {
+                    val selectedImgUri = data.data
+                    binding.ivDishImage.setImageURI(selectedImgUri)
+                    binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
+                }
+            }
         }
     }
 
     companion object {
         private const val CAMERA = 1;
+        private const val GALLERY = 2;
     }
 }
