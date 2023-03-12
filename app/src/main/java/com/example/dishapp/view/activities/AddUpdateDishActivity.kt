@@ -14,6 +14,7 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import com.bumptech.glide.Glide
 import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
@@ -124,7 +125,7 @@ class AddUpdateDishActivity : AppCompatActivity() {
             if (requestCode == CAMERA){
                 data?.let {
                     val image : Bitmap = data.extras!!.get("data") as Bitmap
-                    binding.ivDishImage.setImageBitmap(image)
+                    Glide.with(this).load(image).centerCrop().into(binding.ivDishImage)
                     binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
                 }
             }
@@ -132,7 +133,7 @@ class AddUpdateDishActivity : AppCompatActivity() {
             if (requestCode == GALLERY){
                 data?.let {
                     val selectedImgUri = data.data
-                    binding.ivDishImage.setImageURI(selectedImgUri)
+                    Glide.with(this).load(selectedImgUri).into(binding.ivDishImage)
                     binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
                 }
             }
