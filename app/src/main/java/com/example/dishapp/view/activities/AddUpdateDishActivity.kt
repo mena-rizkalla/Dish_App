@@ -7,14 +7,19 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.ActivityNotFoundException
+import android.content.Context
+import android.content.ContextWrapper
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestListener
 import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
@@ -25,9 +30,15 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
 import com.karumi.dexter.listener.single.PermissionListener
+import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.OutputStream
+import java.util.*
 
 class AddUpdateDishActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddUpdateDishBinding
+    private var imagePath : String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
@@ -125,23 +136,51 @@ class AddUpdateDishActivity : AppCompatActivity() {
             if (requestCode == CAMERA){
                 data?.let {
                     val image : Bitmap = data.extras!!.get("data") as Bitmap
-                    Glide.with(this).load(image).centerCrop().into(binding.ivDishImage)
+                    Glide.with(this)
+                        .load(image)
+                        .centerCrop()
+                        .into(binding.ivDishImage)
                     binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
+                    imagePath = saveImageToInternalStorage(image)
                 }
             }
 
             if (requestCode == GALLERY){
                 data?.let {
                     val selectedImgUri = data.data
-                    Glide.with(this).load(selectedImgUri).into(binding.ivDishImage)
+                    Glide.with(this)
+                        .load(selectedImgUri)
+                        .centerCrop()
+                        .into(binding.ivDishImage)
                     binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
                 }
             }
         }
     }
 
+    // function to take care of saving images to internal storage
+    // return path of the file
+    private fun saveImageToInternalStorage(bitmap: Bitmap):String{
+        val wrapper = ContextWrapper(applicationContext)
+
+        var file = wrapper.getDir(IMAGE_DIRECTORY,Context.MODE_PRIVATE)
+        file = File(file,"${UUID.randomUUID()}.jpg")
+        try {
+            val stream : OutputStream = FileOutputStream(file)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,100,stream)
+            stream.flush()
+            stream.close()
+        }catch (e : IOException){
+            e.printStackTrace()
+        }
+        return file.absolutePath
+    }
+
+
     companion object {
-        private const val CAMERA = 1;
-        private const val GALLERY = 2;
+        private const val CAMERA = 1
+        private const val GALLERY = 2
+
+        private const val IMAGE_DIRECTORY = "DishImages"
     }
 }
