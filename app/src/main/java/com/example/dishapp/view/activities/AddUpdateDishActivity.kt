@@ -17,9 +17,13 @@ import android.provider.MediaStore
 import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toBitmap
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
+import com.bumptech.glide.request.target.Target
 import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
@@ -151,6 +155,28 @@ class AddUpdateDishActivity : AppCompatActivity() {
                     Glide.with(this)
                         .load(selectedImgUri)
                         .centerCrop()
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)
+                        .listener(object  : RequestListener<Drawable>{
+                            override fun onLoadFailed(e: GlideException?, model: Any?,
+                                target: Target<Drawable>?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                return false
+                            }
+
+                            override fun onResourceReady(resource: Drawable?, model: Any?,
+                                target: Target<Drawable>?,
+                                dataSource: DataSource?,
+                                isFirstResource: Boolean
+                            ): Boolean {
+                                resource?.let {
+                                    val bitmap : Bitmap = resource.toBitmap()
+                                    imagePath = saveImageToInternalStorage(bitmap)
+                                }
+                                return false
+                            }
+
+                        })
                         .into(binding.ivDishImage)
                     binding.ivAddDishImage.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_baseline_edit_24))
                 }
