@@ -7,13 +7,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dishapp.databinding.ItemCustomListBinding
 
 class CustomItemAdapter(private val context: Context,
-                        private val listItems : List<String>) :
+                        private val listItems : List<String>,
+                        private val selectedItem : String) :
     RecyclerView.Adapter<CustomItemAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding : ItemCustomListBinding = ItemCustomListBinding.inflate(LayoutInflater.from(context),parent,false)
-        return ViewHolder(binding)    }
+        return ViewHolder(binding)
+    }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]

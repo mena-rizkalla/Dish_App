@@ -18,6 +18,7 @@ import android.provider.Settings
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -27,6 +28,8 @@ import com.bumptech.glide.request.target.Target
 import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
+import com.example.dishapp.databinding.DialogCustomListBinding
+import com.example.dishapp.view.adapters.CustomItemAdapter
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -200,6 +203,18 @@ class AddUpdateDishActivity : AppCompatActivity() {
             e.printStackTrace()
         }
         return file.absolutePath
+    }
+
+    private fun customItemDialog(title:String , itemList: List<String>,selection:String){
+        val customListDialog = Dialog(this)
+        val binding : DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+       customListDialog.setContentView(binding.root)
+
+        binding.tvTitle.text = title
+        binding.rvList.layoutManager = LinearLayoutManager(this)
+        val adapter = CustomItemAdapter(this,itemList,selection)
+        binding.rvList.adapter = adapter
+        customListDialog.show()
     }
 
 
