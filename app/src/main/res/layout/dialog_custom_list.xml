@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/tv_title"
         android:textColor="@color/grey_900"
-        android:textSize="15sdp"
+        android:textSize="15sp"
         android:textStyle="bold"
         tools:text="Dialog Title"/>
 

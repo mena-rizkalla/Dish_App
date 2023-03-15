@@ -29,6 +29,7 @@ import com.example.dishapp.R
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
 import com.example.dishapp.databinding.DialogCustomListBinding
+import com.example.dishapp.utils.Constants
 import com.example.dishapp.view.adapters.CustomItemAdapter
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
@@ -54,6 +55,17 @@ class AddUpdateDishActivity : AppCompatActivity() {
 
         binding.ivAddDishImage.setOnClickListener {
             customImageSelectionDialog()
+        }
+
+        binding.etType.setOnClickListener {
+            customItemDialog("Dish Type",Constants.dishTypes(),Constants.DISH_TYPE)
+        }
+
+        binding.etCategory.setOnClickListener {
+            customItemDialog("Dish Category",Constants.dishCategories(),Constants.DISH_CATEGORY)
+        }
+        binding.etCookingTime.setOnClickListener{
+            customItemDialog("Select Time" , Constants.dishCookTime(),Constants.DISH_COOKING_TIME)
         }
 
     }
