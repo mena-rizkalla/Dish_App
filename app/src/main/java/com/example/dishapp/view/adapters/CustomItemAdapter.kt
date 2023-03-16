@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dishapp.databinding.ItemCustomListBinding
+import com.example.dishapp.view.activities.AddUpdateDishActivity
 
 class CustomItemAdapter(private val context: Context,
                         private val listItems : List<String>,
@@ -20,6 +21,12 @@ class CustomItemAdapter(private val context: Context,
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listItems[position]
         holder.tvText.text = item
+
+        holder.itemView.setOnClickListener {
+            if (context is AddUpdateDishActivity){
+                context.selectedListItem(item,selectedItem)
+            }
+        }
     }
 
     override fun getItemCount(): Int {

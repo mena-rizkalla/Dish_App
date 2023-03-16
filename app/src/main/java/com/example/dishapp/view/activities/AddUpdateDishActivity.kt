@@ -47,6 +47,7 @@ import java.util.*
 class AddUpdateDishActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddUpdateDishBinding
     private var imagePath : String = ""
+    private lateinit var customListDialog : Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
@@ -71,10 +72,10 @@ class AddUpdateDishActivity : AppCompatActivity() {
     }
 
     private fun customImageSelectionDialog() {
-        val dialog = Dialog(this)
+        customListDialog = Dialog(this)
         val binding: DialogCustomImageSelectionBinding =
             DialogCustomImageSelectionBinding.inflate(layoutInflater)
-        dialog.setContentView(binding.root)
+        customListDialog.setContentView(binding.root)
 
         binding.tvCamera.setOnClickListener {
             Dexter.withContext(this).withPermissions(
@@ -98,7 +99,7 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 }
 
             }).onSameThread().check()
-            dialog.dismiss()
+            customListDialog.dismiss()
         }
 
 
@@ -127,9 +128,9 @@ class AddUpdateDishActivity : AppCompatActivity() {
                         showDialogForPermissions()
                     }
                 }).onSameThread().check()
-            dialog.dismiss()
+            customListDialog.dismiss()
         }
-        dialog.show()
+        customListDialog.show()
     }
 
     private fun showDialogForPermissions(){
@@ -218,7 +219,7 @@ class AddUpdateDishActivity : AppCompatActivity() {
     }
 
     private fun customItemDialog(title:String , itemList: List<String>,selection:String){
-        val customListDialog = Dialog(this)
+         customListDialog = Dialog(this)
         val binding : DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
        customListDialog.setContentView(binding.root)
 
@@ -227,6 +228,23 @@ class AddUpdateDishActivity : AppCompatActivity() {
         val adapter = CustomItemAdapter(this,itemList,selection)
         binding.rvList.adapter = adapter
         customListDialog.show()
+    }
+
+    fun selectedListItem(item:String,selection: String){
+        when(selection){
+            Constants.DISH_TYPE -> {
+                customListDialog.dismiss()
+                binding.etType.setText(item)
+            }
+            Constants.DISH_CATEGORY -> {
+                customListDialog.dismiss()
+                binding.etCategory.setText(item)
+            }
+            Constants.DISH_COOKING_TIME -> {
+                customListDialog.dismiss()
+                binding.etCookingTime.setText(item)
+            }
+        }
     }
 
 
