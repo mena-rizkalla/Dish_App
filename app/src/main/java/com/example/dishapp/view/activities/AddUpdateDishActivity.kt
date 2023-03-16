@@ -15,6 +15,7 @@ import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.provider.MediaStore
 import android.provider.Settings
+import android.text.TextUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -69,13 +70,43 @@ class AddUpdateDishActivity : AppCompatActivity() {
             customItemDialog("Select Time" , Constants.dishCookTime(),Constants.DISH_COOKING_TIME)
         }
 
+        binding.btnAddDish.setOnClickListener {
+            val title = binding.etTitle.text.toString().trim { it <= ' ' }
+            val type = binding.etType.text.toString().trim { it <= ' ' }
+            val category = binding.etCategory.text.toString().trim { it <= ' ' }
+            val ingredients = binding.etIngredients.text.toString().trim { it <= ' ' }
+            val cookingTimeInMinutes = binding.etCookingTime.text.toString().trim { it <= ' ' }
+            val cookingDirection = binding.etDirectionToCook.text.toString().trim { it <= ' ' }
+
+            when{
+                TextUtils.isEmpty(title) -> {
+                    Toast.makeText(this,"Add Title",Toast.LENGTH_SHORT).show()
+                }
+                TextUtils.isEmpty(type) -> {
+                    Toast.makeText(this,"Add Type",Toast.LENGTH_SHORT).show()
+                }
+                TextUtils.isEmpty(category) -> {
+                    Toast.makeText(this,"Add Category",Toast.LENGTH_SHORT).show()
+                }
+                TextUtils.isEmpty(ingredients) -> {
+                    Toast.makeText(this,"Add Ingredients",Toast.LENGTH_SHORT).show()
+                }
+                TextUtils.isEmpty(cookingTimeInMinutes) -> {
+                    Toast.makeText(this,"Add Cooking Time",Toast.LENGTH_SHORT).show()
+                }
+                TextUtils.isEmpty(cookingDirection) -> {
+                    Toast.makeText(this,"Add Cooking Direction",Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
     }
 
     private fun customImageSelectionDialog() {
-        customListDialog = Dialog(this)
+        val dialog = Dialog(this)
         val binding: DialogCustomImageSelectionBinding =
             DialogCustomImageSelectionBinding.inflate(layoutInflater)
-        customListDialog.setContentView(binding.root)
+        dialog.setContentView(binding.root)
 
         binding.tvCamera.setOnClickListener {
             Dexter.withContext(this).withPermissions(
@@ -99,7 +130,7 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 }
 
             }).onSameThread().check()
-            customListDialog.dismiss()
+            dialog.dismiss()
         }
 
 
@@ -128,9 +159,9 @@ class AddUpdateDishActivity : AppCompatActivity() {
                         showDialogForPermissions()
                     }
                 }).onSameThread().check()
-            customListDialog.dismiss()
+            dialog.dismiss()
         }
-        customListDialog.show()
+        dialog.show()
     }
 
     private fun showDialogForPermissions(){
