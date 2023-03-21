@@ -19,6 +19,7 @@ import android.text.TextUtils
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -27,11 +28,15 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.dishapp.R
+import com.example.dishapp.application.DishApplication
 import com.example.dishapp.databinding.ActivityAddUpdateDishBinding
 import com.example.dishapp.databinding.DialogCustomImageSelectionBinding
 import com.example.dishapp.databinding.DialogCustomListBinding
+import com.example.dishapp.model.entities.Dish
 import com.example.dishapp.utils.Constants
 import com.example.dishapp.view.adapters.CustomItemAdapter
+import com.example.dishapp.viewmodel.DishViewModel
+import com.example.dishapp.viewmodel.DishViewModelFactory
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -54,6 +59,8 @@ class AddUpdateDishActivity : AppCompatActivity() {
         binding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val dishViewModelFactory = DishViewModelFactory((application as DishApplication).repository)
+        val dishViewModel = ViewModelProvider(this,dishViewModelFactory)[DishViewModel::class.java]
 
         binding.ivAddDishImage.setOnClickListener {
             customImageSelectionDialog()
@@ -96,7 +103,22 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 }
                 TextUtils.isEmpty(cookingDirection) -> {
                     Toast.makeText(this,"Add Cooking Direction",Toast.LENGTH_SHORT).show()
+                }else -> {
+                    val dish = Dish(imagePath ,
+                    Constants.IMAGE_SOURCE_LOCAL,
+                    title,
+                    type,
+                    category,
+                    ingredients,
+                    cookingTimeInMinutes,
+                    cookingDirection,
+                    false)
+                dishViewModel.insert(dish)
+
+                Toast.makeText(this,"Done",Toast.LENGTH_SHORT).show()
+                finish()
                 }
+
             }
         }
 
