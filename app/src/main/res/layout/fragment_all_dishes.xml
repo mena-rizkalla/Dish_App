@@ -21,7 +21,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="@string/label_no_dishes_added_yet"
+        android:text="no_dishes_added_yet"
         android:textSize="@dimen/_16sdp"
         android:textStyle="bold"
         android:visibility="gone"

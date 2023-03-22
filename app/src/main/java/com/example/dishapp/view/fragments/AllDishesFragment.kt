@@ -5,10 +5,18 @@ import android.os.Bundle
 import android.view.*
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dishapp.R
+import com.example.dishapp.application.DishApplication
 import com.example.dishapp.databinding.FragmentAllDishesBinding
 import com.example.dishapp.view.activities.AddUpdateDishActivity
+import com.example.dishapp.view.adapters.DishAdapter
+import com.example.dishapp.viewmodel.DishViewModel
+import com.example.dishapp.viewmodel.DishViewModelFactory
 import com.example.dishapp.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
@@ -20,20 +28,32 @@ class AllDishesFragment : Fragment() {
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        val homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
 
         _binding = FragmentAllDishesBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-        val textView: TextView = binding.textHome
-        homeViewModel.text.observe(viewLifecycleOwner) {
-            textView.text = it
-        }
+        binding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(),2)
+
+        val viewModeFactory = DishViewModelFactory((requireActivity().application as DishApplication).repository)
+        val dishViewModel = ViewModelProvider(this,viewModeFactory).get(DishViewModel::class.java)
+
+        dishViewModel.allDishes.observe(viewLifecycleOwner , Observer {
+            it?.let {
+                if (it.isNotEmpty()) {
+                    binding.rvDishesList.visibility = View.VISIBLE
+                    binding.tvNoDishesAddedYet.visibility = View.GONE
+                    val adapter = DishAdapter(requireActivity(), it)
+                    binding.rvDishesList.adapter = adapter
+                }else{
+                    binding.rvDishesList.visibility = View.GONE
+                    binding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                }
+            }
+
+        })
+
+        setHasOptionsMenu(true)
         return root
     }
 
@@ -42,10 +62,7 @@ class AllDishesFragment : Fragment() {
         _binding = null
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_all_dishes,menu)
@@ -61,4 +78,5 @@ class AllDishesFragment : Fragment() {
         }
         return super.onOptionsItemSelected(item)
     }
+
 }

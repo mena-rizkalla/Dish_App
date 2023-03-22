@@ -1,8 +1,6 @@
 package com.example.dishapp.viewmodel
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.dishapp.model.database.DishRepository
 import com.example.dishapp.model.entities.Dish
 import kotlinx.coroutines.launch
@@ -16,6 +14,8 @@ class DishViewModel(private val repository: DishRepository) : ViewModel() {
             repository.insertDishData(dish)
         }
     }
+
+    val allDishes : LiveData<List<Dish>> = repository.getAllDishesList().asLiveData()
 }
 
 @Suppress("UNCHECKED_CAST")
