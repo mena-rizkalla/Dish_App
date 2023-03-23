@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Dish App</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_home">All Dishes</string>
+    <string name="title_dashboard">Favorite</string>
+    <string name="title_notifications">Random Dish</string>
 
     <string name="add_dish">add dish</string>
 

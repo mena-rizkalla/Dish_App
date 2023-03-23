@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/navigation_home">
+    app:startDestination="@+id/navigation_all_dishes">
 
     <fragment
-        android:id="@+id/navigation_home"
+        android:id="@+id/navigation_all_dishes"
         android:name="com.example.dishapp.view.fragments.AllDishesFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_all_dishes" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
-        android:name="com.example.dishapp.view.fragments.DashboardFragment"
+        android:id="@+id/navigation_favorite_dishes"
+        android:name="com.example.dishapp.view.fragments.FavoriteDishesFragment"
         android:label="@string/title_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_favorite_dishes" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
-        android:name="com.example.dishapp.view.fragments.NotificationsFragment"
+        android:id="@+id/navigation_random_dish"
+        android:name="com.example.dishapp.view.fragments.RandomDishFragment"
         android:label="@string/title_notifications"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_random_dish" />
 </navigation>
