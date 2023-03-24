@@ -3,13 +3,10 @@ package com.example.dishapp.view.fragments
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dishapp.R
 import com.example.dishapp.application.DishApplication
 import com.example.dishapp.databinding.FragmentAllDishesBinding
@@ -17,7 +14,6 @@ import com.example.dishapp.view.activities.AddUpdateDishActivity
 import com.example.dishapp.view.adapters.DishAdapter
 import com.example.dishapp.viewmodel.DishViewModel
 import com.example.dishapp.viewmodel.DishViewModelFactory
-import com.example.dishapp.viewmodel.HomeViewModel
 
 class AllDishesFragment : Fragment() {
 
