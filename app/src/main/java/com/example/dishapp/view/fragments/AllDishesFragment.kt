@@ -39,7 +39,7 @@ class AllDishesFragment : Fragment() {
                 if (it.isNotEmpty()) {
                     binding.rvDishesList.visibility = View.VISIBLE
                     binding.tvNoDishesAddedYet.visibility = View.GONE
-                    val adapter = DishAdapter(requireActivity(), it)
+                    val adapter = DishAdapter(this, it)
                     binding.rvDishesList.adapter = adapter
                 }else{
                     binding.rvDishesList.visibility = View.GONE
