@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dishapp.R
 import com.example.dishapp.model.entities.Dish
+import com.example.dishapp.view.fragments.AllDishesFragment
 
 class DishAdapter(private val fragment: Fragment , private var dishes : List<Dish>) : RecyclerView.Adapter<DishAdapter.ViewHolder>() {
 
@@ -27,7 +28,7 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
         fragment.context?.let { Glide.with(it).load(dish.image).into(holder.dishImage) }
 
         holder.itemView.setOnClickListener {
-           fragment.findNavController().navigate(R.id.action_navigation_all_dishes_to_dishDetailsFragment)
+            (fragment as AllDishesFragment).dishDetails()
         }
     }
 

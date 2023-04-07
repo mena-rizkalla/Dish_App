@@ -6,11 +6,13 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dishapp.R
 import com.example.dishapp.application.DishApplication
 import com.example.dishapp.databinding.FragmentAllDishesBinding
 import com.example.dishapp.view.activities.AddUpdateDishActivity
+import com.example.dishapp.view.activities.MainActivity
 import com.example.dishapp.view.adapters.DishAdapter
 import com.example.dishapp.viewmodel.DishViewModel
 import com.example.dishapp.viewmodel.DishViewModelFactory
@@ -58,6 +60,19 @@ class AllDishesFragment : Fragment() {
         _binding = null
     }
 
+    fun dishDetails(){
+        findNavController().navigate(R.id.action_navigation_all_dishes_to_dishDetailsFragment)
+        if (requireActivity() is MainActivity){
+            (activity as MainActivity?)!!.hideBottomNavigationView()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (requireActivity() is MainActivity){
+            (activity as MainActivity?)!!.showBottomNavigationView()
+        }
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
