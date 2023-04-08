@@ -30,5 +30,11 @@
         android:id="@+id/dishDetailsFragment"
         android:name="com.example.dishapp.view.fragments.DishDetailsFragment"
         android:label="fragment_dish_details"
-        tools:layout="@layout/fragment_dish_details" />
+        tools:layout="@layout/fragment_dish_details" >
+
+
+        <argument
+            android:name="dishDetails"
+            app:argType="com.example.dishapp.model.entities.Dish" />
+    </fragment>
 </navigation>

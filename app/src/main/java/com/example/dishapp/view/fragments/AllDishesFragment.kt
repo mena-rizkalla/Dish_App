@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.dishapp.R
 import com.example.dishapp.application.DishApplication
 import com.example.dishapp.databinding.FragmentAllDishesBinding
+import com.example.dishapp.model.entities.Dish
 import com.example.dishapp.view.activities.AddUpdateDishActivity
 import com.example.dishapp.view.activities.MainActivity
 import com.example.dishapp.view.adapters.DishAdapter
@@ -60,8 +61,9 @@ class AllDishesFragment : Fragment() {
         _binding = null
     }
 
-    fun dishDetails(){
-        findNavController().navigate(R.id.action_navigation_all_dishes_to_dishDetailsFragment)
+    fun dishDetails(dish: Dish){
+        val action = AllDishesFragmentDirections.actionNavigationAllDishesToDishDetailsFragment(dish)
+        findNavController().navigate(action)
         if (requireActivity() is MainActivity){
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }

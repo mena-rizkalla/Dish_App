@@ -28,7 +28,7 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
         fragment.context?.let { Glide.with(it).load(dish.image).into(holder.dishImage) }
 
         holder.itemView.setOnClickListener {
-            (fragment as AllDishesFragment).dishDetails()
+            (fragment as AllDishesFragment).dishDetails(dish)
         }
     }
 
