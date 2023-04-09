@@ -3,8 +3,16 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.132" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/favorite_button_background.xml" value="0.123" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_add_a_photo.xml" value="0.2015" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.132" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_baseline_camera_alt_24.xml" value="0.216" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_baseline_edit_24.xml" value="0.132" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.132" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_home_black_24dp.xml" value="0.132" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.132" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.132" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/drawable/ic_vector_image.xml" value="0.216" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/activity_add_update_dish.xml" value="0.25364583333333335" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/activity_main.xml" value="0.1" />
@@ -14,6 +22,7 @@
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/dish_item.xml" value="0.12360688956433637" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/fragment_all_dishes.xml" value="0.2463768115942029" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/fragment_dish_details.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/layout/item_custom_list.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProjects/DishApp/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25416666666666665" />

@@ -8,7 +8,11 @@
     <dimen name="_20sdp">20dp</dimen>
     <dimen name="_30sdp">30dp</dimen>
     <dimen name="_10sdp">10dp</dimen>
+    <dimen name="_12sdp">12dp</dimen>
+    <dimen name="_14sdp">14dp</dimen>
     <dimen name="_1sdp">1sp</dimen>
     <dimen name="_120sdp">120dp</dimen>
+    <dimen name="_200sdp">200dp</dimen>
+
     <dimen name="_5sdp">5dp</dimen>
 </resources>
