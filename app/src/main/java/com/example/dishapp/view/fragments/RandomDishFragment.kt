@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.dishapp.databinding.FragmentRandomDishBinding
-import com.example.dishapp.viewmodel.NotificationsViewModel
+import com.example.dishapp.viewmodel.RandomDishViewModel
 
 class RandomDishFragment : Fragment() {
 
@@ -24,7 +24,7 @@ class RandomDishFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         val notificationsViewModel =
-            ViewModelProvider(this).get(NotificationsViewModel::class.java)
+            ViewModelProvider(this).get(RandomDishViewModel::class.java)
 
         _binding = FragmentRandomDishBinding.inflate(inflater, container, false)
         val root: View = binding.root
