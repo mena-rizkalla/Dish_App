@@ -3,6 +3,7 @@ package com.example.dishapp.model.database
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import com.example.dishapp.model.entities.Dish
 import kotlinx.coroutines.flow.Flow
 
