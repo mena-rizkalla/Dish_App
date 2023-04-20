@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.example.dishapp.R
 import com.example.dishapp.model.entities.Dish
 import com.example.dishapp.view.fragments.AllDishesFragment
+import com.example.dishapp.view.fragments.FavoriteDishesFragment
 
 class DishAdapter(private val fragment: Fragment , private var dishes : List<Dish>) : RecyclerView.Adapter<DishAdapter.ViewHolder>() {
 
@@ -28,7 +29,13 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
         fragment.context?.let { Glide.with(it).load(dish.image).into(holder.dishImage) }
 
         holder.itemView.setOnClickListener {
-            (fragment as AllDishesFragment).dishDetails(dish)
+            if (fragment is AllDishesFragment){
+                (fragment as AllDishesFragment).dishDetails(dish)
+            }else{
+                (fragment as FavoriteDishesFragment).dishDetails(dish)
+            }
+
+
         }
     }
 

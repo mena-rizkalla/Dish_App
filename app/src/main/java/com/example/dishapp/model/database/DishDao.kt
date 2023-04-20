@@ -18,4 +18,7 @@ interface DishDao {
 
     @Query("SELECT * FROM dishes_table ORDER BY ID")
      fun getALLDishes() : Flow<List<Dish>>
+
+     @Query("SELECT * FROM dishes_table WHERE favoriteDish = 1")
+     fun getFavouriteDishes() : Flow<List<Dish>>
 }

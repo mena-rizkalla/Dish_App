@@ -21,4 +21,8 @@ class DishRepository(private val dishDao : DishDao){
      fun getAllDishesList():Flow<List<Dish>>{
         return dishDao.getALLDishes()
     }
+
+    fun getAllFavouriteDishes():Flow<List<Dish>>{
+        return dishDao.getFavouriteDishes()
+    }
 }

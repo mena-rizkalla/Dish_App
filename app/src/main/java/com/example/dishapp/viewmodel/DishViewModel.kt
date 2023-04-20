@@ -22,6 +22,8 @@ class DishViewModel(private val repository: DishRepository) : ViewModel() {
     }
 
     val allDishes : LiveData<List<Dish>> = repository.getAllDishesList().asLiveData()
+
+    val allFavouriteDishes : LiveData<List<Dish>> = repository.getAllFavouriteDishes().asLiveData()
 }
 
 @Suppress("UNCHECKED_CAST")
