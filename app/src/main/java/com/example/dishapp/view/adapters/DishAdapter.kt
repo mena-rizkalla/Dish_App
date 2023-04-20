@@ -3,8 +3,7 @@ package com.example.dishapp.view.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
+import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -29,14 +28,31 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
         fragment.context?.let { Glide.with(it).load(dish.image).into(holder.dishImage) }
 
         holder.itemView.setOnClickListener {
-            if (fragment is AllDishesFragment){
+            if (fragment is AllDishesFragment) {
                 (fragment as AllDishesFragment).dishDetails(dish)
-            }else{
+            } else {
                 (fragment as FavoriteDishesFragment).dishDetails(dish)
             }
-
-
         }
+            holder.moreBtn.setOnClickListener {
+                val popUp = PopupMenu(fragment.context,holder.moreBtn)
+                popUp.menuInflater.inflate(R.menu.menu_adapter,popUp.menu)
+                popUp.setOnMenuItemClickListener {
+                    if (it.itemId == R.id.edit_dish){
+                        Toast.makeText(fragment.context,"Edit",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(fragment.context,"Delete",Toast.LENGTH_SHORT).show()
+                    }
+                    true
+                }
+                popUp.show()
+            }
+
+            if (fragment is AllDishesFragment){
+                holder.moreBtn.visibility = View.VISIBLE
+            }else{
+                holder.moreBtn.visibility = View.GONE
+            }
     }
 
     override fun getItemCount(): Int {
@@ -49,7 +65,8 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
     }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-         val title = itemView.findViewById<TextView>(R.id.tv_dish_title)
-         val dishImage = itemView.findViewById<ImageView>(R.id.iv_dish_image)
+        val title = itemView.findViewById<TextView>(R.id.tv_dish_title)
+        val dishImage = itemView.findViewById<ImageView>(R.id.iv_dish_image)
+        val moreBtn = itemView.findViewById<ImageButton>(R.id.ib_more)
     }
 }

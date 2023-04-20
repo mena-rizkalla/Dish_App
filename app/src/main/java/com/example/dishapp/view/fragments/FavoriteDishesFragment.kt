@@ -62,4 +62,11 @@ class FavoriteDishesFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
+
+    override fun onResume() {
+        super.onResume()
+        if (requireActivity() is MainActivity){
+            (activity as MainActivity?)!!.showBottomNavigationView()
+        }
+    }
 }
