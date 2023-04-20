@@ -13,6 +13,9 @@ interface DishDao {
     @Insert
     suspend fun insert(dish : Dish)
 
+    @Update
+    suspend fun update(dish: Dish)
+
     @Query("SELECT * FROM dishes_table ORDER BY ID")
      fun getALLDishes() : Flow<List<Dish>>
 }

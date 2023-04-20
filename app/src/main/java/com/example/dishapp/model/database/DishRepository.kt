@@ -13,6 +13,11 @@ class DishRepository(private val dishDao : DishDao){
         dishDao.insert(dish)
     }
 
+    @WorkerThread
+    suspend fun updateDishDate(dish: Dish){
+        dishDao.update(dish)
+    }
+
      fun getAllDishesList():Flow<List<Dish>>{
         return dishDao.getALLDishes()
     }

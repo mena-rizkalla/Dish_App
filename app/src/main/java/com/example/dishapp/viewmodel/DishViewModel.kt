@@ -15,6 +15,12 @@ class DishViewModel(private val repository: DishRepository) : ViewModel() {
         }
     }
 
+    fun update(dish : Dish){
+        viewModelScope.launch {
+            repository.updateDishDate(dish)
+        }
+    }
+
     val allDishes : LiveData<List<Dish>> = repository.getAllDishesList().asLiveData()
 }
 
