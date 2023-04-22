@@ -21,6 +21,12 @@ class DishViewModel(private val repository: DishRepository) : ViewModel() {
         }
     }
 
+    fun delete(dish: Dish){
+        viewModelScope.launch {
+            repository.deleteDish(dish)
+        }
+    }
+
     val allDishes : LiveData<List<Dish>> = repository.getAllDishesList().asLiveData()
 
     val allFavouriteDishes : LiveData<List<Dish>> = repository.getAllFavouriteDishes().asLiveData()

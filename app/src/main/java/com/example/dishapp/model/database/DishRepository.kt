@@ -18,6 +18,11 @@ class DishRepository(private val dishDao : DishDao){
         dishDao.update(dish)
     }
 
+    @WorkerThread
+    suspend fun deleteDish(dish: Dish){
+        dishDao.delete(dish)
+    }
+
      fun getAllDishesList():Flow<List<Dish>>{
         return dishDao.getALLDishes()
     }

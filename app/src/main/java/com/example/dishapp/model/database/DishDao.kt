@@ -1,9 +1,6 @@
 package com.example.dishapp.model.database
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.dishapp.model.entities.Dish
 import kotlinx.coroutines.flow.Flow
 
@@ -15,6 +12,9 @@ interface DishDao {
 
     @Update
     suspend fun update(dish: Dish)
+
+    @Delete
+    suspend fun delete(dish: Dish)
 
     @Query("SELECT * FROM dishes_table ORDER BY ID")
      fun getALLDishes() : Flow<List<Dish>>

@@ -48,6 +48,7 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
                         intent.putExtra(Constants.EXTRA_DISH_DETAIL,dish)
                         fragment.requireActivity().startActivity(intent)
                     }else if(it.itemId == R.id.delete_dish){
+                        (fragment as AllDishesFragment).deleteDishData(dish)
                         Toast.makeText(fragment.context,"Delete",Toast.LENGTH_SHORT).show()
                     }
                     true

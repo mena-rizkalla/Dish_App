@@ -24,6 +24,7 @@ class AllDishesFragment : Fragment() {
 
     // This property is only valid between onCreateView and
     // onDestroyView.
+    private lateinit var dishViewModel: DishViewModel
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -35,7 +36,7 @@ class AllDishesFragment : Fragment() {
         binding.rvDishesList.layoutManager = GridLayoutManager(requireActivity(),2)
 
         val viewModeFactory = DishViewModelFactory((requireActivity().application as DishApplication).repository)
-        val dishViewModel = ViewModelProvider(this,viewModeFactory).get(DishViewModel::class.java)
+        dishViewModel = ViewModelProvider(this,viewModeFactory).get(DishViewModel::class.java)
 
         dishViewModel.allDishes.observe(viewLifecycleOwner , Observer {
             it?.let {
@@ -67,6 +68,10 @@ class AllDishesFragment : Fragment() {
         if (requireActivity() is MainActivity){
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }
+    }
+
+    fun deleteDishData(dish: Dish){
+        dishViewModel.delete(dish)
     }
 
     override fun onResume() {
