@@ -1,8 +1,10 @@
 package com.example.dishapp.view.fragments
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -71,7 +73,24 @@ class AllDishesFragment : Fragment() {
     }
 
     fun deleteDishData(dish: Dish){
-        dishViewModel.delete(dish)
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("Delete Dish")
+        builder.setMessage("Are you sure you wants to delete this dish")
+        builder.setIcon(android.R.drawable.ic_dialog_alert)
+        builder.setPositiveButton("Yes"){dialogInterface , _ ->
+            dishViewModel.delete(dish)
+            dialogInterface.dismiss()
+            Toast.makeText(context,"Deleted", Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton("No"){dialogInterface ,_ ->
+            dialogInterface.dismiss()
+        }
+
+        val alertDialog : AlertDialog = builder.create()
+        alertDialog.setCancelable(false)
+        alertDialog.show()
+
     }
 
     override fun onResume() {
