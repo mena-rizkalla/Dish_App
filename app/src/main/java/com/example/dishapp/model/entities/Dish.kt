@@ -9,14 +9,14 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 @Entity(tableName = "dishes_table")
 data class Dish(
-    @ColumnInfo val image : String,
+    @ColumnInfo var image : String,
     @ColumnInfo val imageSource : String,
-    @ColumnInfo val title : String,
-    @ColumnInfo val type : String,
-    @ColumnInfo val category: String,
-    @ColumnInfo val ingredient : String,
-    @ColumnInfo val cookingTime : String,
-    @ColumnInfo val directionToCook : String,
+    @ColumnInfo var title : String,
+    @ColumnInfo var type : String,
+    @ColumnInfo var category: String,
+    @ColumnInfo var ingredient : String,
+    @ColumnInfo var cookingTime : String,
+    @ColumnInfo var directionToCook : String,
     @ColumnInfo var favoriteDish : Boolean = false,
     @PrimaryKey(autoGenerate = true) val id : Int =0
 ) : Parcelable

@@ -9,6 +9,8 @@ object Constants {
     const val IMAGE_SOURCE_LOCAL : String = "Local"
     const val IMAGE_SOURCE_ONLINE : String = "Online"
 
+    const val EXTRA_DISH_DETAIL : String = "DishDetails"
+
     fun dishTypes():ArrayList<String>{
         val dishTypes = ArrayList<String>()
         dishTypes.add("breakfast")

@@ -20,6 +20,8 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -54,10 +56,31 @@ class AddUpdateDishActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddUpdateDishBinding
     private var imagePath : String = ""
     private lateinit var customListDialog : Dialog
+    private var dishDetails : Dish? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddUpdateDishBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        if (intent.hasExtra(Constants.EXTRA_DISH_DETAIL)){
+            dishDetails = intent.getParcelableExtra(Constants.EXTRA_DISH_DETAIL)
+        }
+
+        setupActionBar()
+
+        dishDetails?.let {
+            Glide.with(this).load(it.image).centerCrop().into(binding.ivDishImage)
+            binding.etType.setText(it.type)
+            binding.etCookingTime.setText(it.cookingTime)
+            binding.etTitle.setText(it.title)
+            binding.etCategory.setText(it.category)
+            binding.etIngredients.setText(it.ingredient)
+            binding.etDirectionToCook.setText(it.directionToCook)
+
+            binding.btnAddDish.text = "Update Dish"
+        }
+
 
         val dishViewModelFactory = DishViewModelFactory((application as DishApplication).repository)
         val dishViewModel = ViewModelProvider(this,dishViewModelFactory)[DishViewModel::class.java]
@@ -104,17 +127,27 @@ class AddUpdateDishActivity : AppCompatActivity() {
                 TextUtils.isEmpty(cookingDirection) -> {
                     Toast.makeText(this,"Add Cooking Direction",Toast.LENGTH_SHORT).show()
                 }else -> {
-                    val dish = Dish(imagePath ,
-                    Constants.IMAGE_SOURCE_LOCAL,
-                    title,
-                    type,
-                    category,
-                    ingredients,
-                    cookingTimeInMinutes,
-                    cookingDirection,
-                    false)
-                dishViewModel.insert(dish)
 
+                if (dishDetails != null){
+                    dishDetails?.title = title
+                    dishDetails?.type = type
+                    dishDetails?.category = category
+                    dishDetails?.ingredient = ingredients
+                    dishDetails?.cookingTime = cookingTimeInMinutes
+                    dishDetails?.directionToCook = cookingDirection
+                    dishViewModel.update(dishDetails!!)
+                }else {
+                    val dish = Dish(imagePath ,
+                        Constants.IMAGE_SOURCE_LOCAL,
+                        title,
+                        type,
+                        category,
+                        ingredients,
+                        cookingTimeInMinutes,
+                        cookingDirection,
+                        false)
+                    dishViewModel.insert(dish)
+                }
                 Toast.makeText(this,"Done",Toast.LENGTH_SHORT).show()
                 finish()
                 }
@@ -300,6 +333,19 @@ class AddUpdateDishActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupActionBar(){
+        setSupportActionBar(binding.toolbarAddDishActivity)
+
+        if (dishDetails != null ){
+            supportActionBar?.let {
+                it.title = "Edit Dish"
+            }
+        }else{
+            supportActionBar?.title = "Add Dish"
+        }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
 
     companion object {
         private const val CAMERA = 1

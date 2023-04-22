@@ -33,7 +33,7 @@
     <fragment
         android:id="@+id/dishDetailsFragment"
         android:name="com.example.dishapp.view.fragments.DishDetailsFragment"
-        android:label="fragment_dish_details"
+        android:label="Dish Details"
         tools:layout="@layout/fragment_dish_details" >
 
 

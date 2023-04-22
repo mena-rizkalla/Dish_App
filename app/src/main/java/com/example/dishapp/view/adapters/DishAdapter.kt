@@ -1,5 +1,6 @@
 package com.example.dishapp.view.adapters
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.dishapp.R
 import com.example.dishapp.model.entities.Dish
+import com.example.dishapp.utils.Constants
+import com.example.dishapp.view.activities.AddUpdateDishActivity
 import com.example.dishapp.view.fragments.AllDishesFragment
 import com.example.dishapp.view.fragments.FavoriteDishesFragment
 
@@ -29,18 +32,22 @@ class DishAdapter(private val fragment: Fragment , private var dishes : List<Dis
 
         holder.itemView.setOnClickListener {
             if (fragment is AllDishesFragment) {
-                (fragment as AllDishesFragment).dishDetails(dish)
-            } else {
-                (fragment as FavoriteDishesFragment).dishDetails(dish)
+                (fragment).dishDetails(dish)
+            } else if (fragment is FavoriteDishesFragment){
+                (fragment).dishDetails(dish)
             }
         }
             holder.moreBtn.setOnClickListener {
+
                 val popUp = PopupMenu(fragment.context,holder.moreBtn)
                 popUp.menuInflater.inflate(R.menu.menu_adapter,popUp.menu)
+
                 popUp.setOnMenuItemClickListener {
                     if (it.itemId == R.id.edit_dish){
-                        Toast.makeText(fragment.context,"Edit",Toast.LENGTH_SHORT).show()
-                    }else{
+                        val intent = Intent(fragment.context,AddUpdateDishActivity::class.java)
+                        intent.putExtra(Constants.EXTRA_DISH_DETAIL,dish)
+                        fragment.requireActivity().startActivity(intent)
+                    }else if(it.itemId == R.id.delete_dish){
                         Toast.makeText(fragment.context,"Delete",Toast.LENGTH_SHORT).show()
                     }
                     true
