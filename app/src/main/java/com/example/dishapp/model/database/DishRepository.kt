@@ -30,4 +30,8 @@ class DishRepository(private val dishDao : DishDao){
     fun getAllFavouriteDishes():Flow<List<Dish>>{
         return dishDao.getFavouriteDishes()
     }
+
+    fun selectDishes(dishType : String):Flow<List<Dish>>{
+        return dishDao.selectDishes(dishType)
+    }
 }

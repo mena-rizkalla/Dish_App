@@ -1,6 +1,7 @@
 package com.example.dishapp.view.fragments
 
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -10,12 +11,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dishapp.R
 import com.example.dishapp.application.DishApplication
+import com.example.dishapp.databinding.DialogCustomListBinding
 import com.example.dishapp.databinding.FragmentAllDishesBinding
 import com.example.dishapp.model.entities.Dish
+import com.example.dishapp.utils.Constants
 import com.example.dishapp.view.activities.AddUpdateDishActivity
 import com.example.dishapp.view.activities.MainActivity
+import com.example.dishapp.view.adapters.CustomItemAdapter
 import com.example.dishapp.view.adapters.DishAdapter
 import com.example.dishapp.viewmodel.DishViewModel
 import com.example.dishapp.viewmodel.DishViewModelFactory
@@ -93,6 +98,21 @@ class AllDishesFragment : Fragment() {
 
     }
 
+    private fun filterDishesListDialog(){
+        val dialog  = Dialog(requireActivity())
+        val binding : DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
+        dialog.setContentView(binding.root)
+
+        binding.tvTitle.text = "Select item to filer"
+
+        binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
+        val adapter = CustomItemAdapter(requireActivity(),Constants.dishTypes(),Constants.DISH_TYPE)
+        binding.rvList.adapter = adapter
+        dialog.show()
+
+    }
+
+
     override fun onResume() {
         super.onResume()
         if (requireActivity() is MainActivity){
@@ -110,6 +130,10 @@ class AllDishesFragment : Fragment() {
         when(item.itemId){
             R.id.action_add_dish -> {
                 startActivity(Intent(requireActivity(),AddUpdateDishActivity::class.java))
+                return true
+            }
+            R.id.action_filter_dish -> {
+                filterDishesListDialog()
                 return true
             }
         }
