@@ -102,11 +102,16 @@ class AllDishesFragment : Fragment() {
         val dialog  = Dialog(requireActivity())
         val binding : DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
         dialog.setContentView(binding.root)
-
         binding.tvTitle.text = "Select item to filer"
 
+        val dishTypes = Constants.dishTypes()
+        dishTypes.add(0,"ALL")
         binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
-        val adapter = CustomItemAdapter(requireActivity(),Constants.dishTypes(),Constants.DISH_TYPE)
+
+
+        val adapter = CustomItemAdapter(requireActivity(),dishTypes,Constants.DISH_TYPE)
+
+
         binding.rvList.adapter = adapter
         dialog.show()
 

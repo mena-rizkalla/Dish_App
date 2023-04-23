@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dishapp.databinding.FragmentAllDishesBinding
 import com.example.dishapp.databinding.ItemCustomListBinding
 import com.example.dishapp.view.activities.AddUpdateDishActivity
 
