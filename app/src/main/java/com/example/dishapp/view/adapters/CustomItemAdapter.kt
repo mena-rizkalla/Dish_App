@@ -3,12 +3,15 @@ package com.example.dishapp.view.adapters
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dishapp.databinding.FragmentAllDishesBinding
 import com.example.dishapp.databinding.ItemCustomListBinding
 import com.example.dishapp.view.activities.AddUpdateDishActivity
+import com.example.dishapp.view.fragments.AllDishesFragment
 
 class CustomItemAdapter(private val context: Context,
+                        private val fragment: Fragment?,
                         private val listItems : List<String>,
                         private val selectedItem : String) :
     RecyclerView.Adapter<CustomItemAdapter.ViewHolder>() {
@@ -26,6 +29,9 @@ class CustomItemAdapter(private val context: Context,
         holder.itemView.setOnClickListener {
             if (context is AddUpdateDishActivity){
                 context.selectedListItem(item,selectedItem)
+            }
+            if(fragment is AllDishesFragment){
+                fragment.filterSelection(item)
             }
         }
     }

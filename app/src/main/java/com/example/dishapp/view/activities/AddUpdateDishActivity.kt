@@ -311,7 +311,7 @@ class AddUpdateDishActivity : AppCompatActivity() {
 
         binding.tvTitle.text = title
         binding.rvList.layoutManager = LinearLayoutManager(this)
-        val adapter = CustomItemAdapter(this,itemList,selection)
+        val adapter = CustomItemAdapter(this,null,itemList,selection)
         binding.rvList.adapter = adapter
         customListDialog.show()
     }

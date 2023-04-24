@@ -28,6 +28,8 @@ import com.example.dishapp.viewmodel.DishViewModelFactory
 class AllDishesFragment : Fragment() {
 
     private var _binding: FragmentAllDishesBinding? = null
+    private lateinit var adapter: DishAdapter
+    private lateinit var dialog : Dialog
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -50,7 +52,7 @@ class AllDishesFragment : Fragment() {
                 if (it.isNotEmpty()) {
                     binding.rvDishesList.visibility = View.VISIBLE
                     binding.tvNoDishesAddedYet.visibility = View.GONE
-                    val adapter = DishAdapter(this, it)
+                    adapter = DishAdapter(this, it)
                     binding.rvDishesList.adapter = adapter
                 }else{
                     binding.rvDishesList.visibility = View.GONE
@@ -99,7 +101,7 @@ class AllDishesFragment : Fragment() {
     }
 
     private fun filterDishesListDialog(){
-        val dialog  = Dialog(requireActivity())
+        dialog  = Dialog(requireActivity())
         val binding : DialogCustomListBinding = DialogCustomListBinding.inflate(layoutInflater)
         dialog.setContentView(binding.root)
         binding.tvTitle.text = "Select item to filer"
@@ -109,7 +111,7 @@ class AllDishesFragment : Fragment() {
         binding.rvList.layoutManager = LinearLayoutManager(requireActivity())
 
 
-        val adapter = CustomItemAdapter(requireActivity(),dishTypes,Constants.DISH_TYPE)
+        val adapter = CustomItemAdapter(requireActivity(),this,dishTypes,Constants.DISH_TYPE)
 
 
         binding.rvList.adapter = adapter
@@ -143,6 +145,29 @@ class AllDishesFragment : Fragment() {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+
+    fun filterSelection(selectedType : String){
+        dialog.dismiss()
+
+        when(selectedType){
+            "ALL" -> {
+                dishViewModel.allDishes.observe(viewLifecycleOwner , Observer {
+                    it?.let {
+                        if (it.isNotEmpty()) {
+                            binding.rvDishesList.visibility = View.VISIBLE
+                            binding.tvNoDishesAddedYet.visibility = View.GONE
+                            adapter = DishAdapter(this, it)
+                            binding.rvDishesList.adapter = adapter
+                        }else{
+                            binding.rvDishesList.visibility = View.GONE
+                            binding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                        }
+                    }
+                })
+            }
+        }
     }
 
 }
