@@ -3,6 +3,7 @@ package com.example.dishapp.viewmodel
 import androidx.lifecycle.*
 import com.example.dishapp.model.database.DishRepository
 import com.example.dishapp.model.entities.Dish
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.lang.IllegalArgumentException
 
@@ -25,6 +26,10 @@ class DishViewModel(private val repository: DishRepository) : ViewModel() {
         viewModelScope.launch {
             repository.deleteDish(dish)
         }
+    }
+
+    fun getSelectedDish(dishType : String) :LiveData<List<Dish>>{
+        return repository.selectDishes(dishType).asLiveData()
     }
 
     val allDishes : LiveData<List<Dish>> = repository.getAllDishesList().asLiveData()

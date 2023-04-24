@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -151,23 +152,35 @@ class AllDishesFragment : Fragment() {
     fun filterSelection(selectedType : String){
         dialog.dismiss()
 
-        when(selectedType){
-            "ALL" -> {
-                dishViewModel.allDishes.observe(viewLifecycleOwner , Observer {
-                    it?.let {
-                        if (it.isNotEmpty()) {
-                            binding.rvDishesList.visibility = View.VISIBLE
-                            binding.tvNoDishesAddedYet.visibility = View.GONE
-                            adapter = DishAdapter(this, it)
-                            binding.rvDishesList.adapter = adapter
-                        }else{
-                            binding.rvDishesList.visibility = View.GONE
-                            binding.tvNoDishesAddedYet.visibility = View.VISIBLE
-                        }
+
+        if (selectedType == "ALL") {
+            dishViewModel.allDishes.observe(viewLifecycleOwner , Observer {
+                it?.let {
+                    if (it.isNotEmpty()) {
+                        binding.rvDishesList.visibility = View.VISIBLE
+                        binding.tvNoDishesAddedYet.visibility = View.GONE
+                        adapter = DishAdapter(this, it)
+                        binding.rvDishesList.adapter = adapter
+                    }else{
+                        binding.rvDishesList.visibility = View.GONE
+                        binding.tvNoDishesAddedYet.visibility = View.VISIBLE
                     }
-                })
-            }
+                }
+            })
+        }else{
+            dishViewModel.getSelectedDish(selectedType).observe(viewLifecycleOwner , Observer {
+                it?.let {
+                    if (it.isNotEmpty()) {
+                        binding.rvDishesList.visibility = View.VISIBLE
+                        binding.tvNoDishesAddedYet.visibility = View.GONE
+                        adapter = DishAdapter(this, it)
+                        binding.rvDishesList.adapter = adapter
+                    }else{
+                        binding.rvDishesList.visibility = View.GONE
+                        binding.tvNoDishesAddedYet.visibility = View.VISIBLE
+                    }
+                }
+            })
         }
     }
-
 }
