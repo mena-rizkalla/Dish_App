@@ -11,6 +11,12 @@ object Constants {
 
     const val EXTRA_DISH_DETAIL : String = "DishDetails"
 
+    const val API_ENDPOINT :String = "recipes/random"
+    const val API_KEY : String = "apikey"
+    const val LIMIT_LICENCE : String = "limitLicence"
+    const val TAGS : String = "tags"
+    const val NUMBER : String = "number"
+
     fun dishTypes():ArrayList<String>{
         val dishTypes = ArrayList<String>()
         dishTypes.add("breakfast")
