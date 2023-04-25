@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-    <ScrollView
+<ScrollView
     tools:context=".view.fragments.DishDetailsFragment"
     android:scrollbars="none"
     android:fillViewport="true"
@@ -15,7 +14,6 @@
     <RelativeLayout
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
-
 
         <FrameLayout
             android:id="@+id/fl_dish_image"
