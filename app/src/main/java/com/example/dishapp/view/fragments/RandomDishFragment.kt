@@ -10,7 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.lifecycleScope
+import com.bumptech.glide.Glide
 import com.example.dishapp.databinding.FragmentRandomDishBinding
+import com.example.dishapp.model.entities.RandomDish
 import com.example.dishapp.viewmodel.DishViewModel
 import com.example.dishapp.viewmodel.RandomDishViewModel
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +49,7 @@ class RandomDishFragment : Fragment() {
         randomDishViewModel.randomDish.observe(viewLifecycleOwner, Observer {
 
             it?.let {
-                Toast.makeText(requireActivity(), it.recipes!![0]?.toString() ,Toast.LENGTH_SHORT).show()
+                it.recipes!![0]?.let { it1 -> setUI(it1) }
             }
 
         })
@@ -63,6 +65,33 @@ class RandomDishFragment : Fragment() {
             }
         })
 
+    }
+
+    private fun setUI(randomDish : RandomDish.Recipe){
+        Glide.with(requireActivity())
+            .load(randomDish.image)
+            .centerCrop()
+            .into(binding.ivDishImage)
+        binding.tvTitle.text = randomDish.title
+
+        var dishType = "other"
+        if (randomDish.dishTypes!!.isNotEmpty()){
+            dishType = randomDish.dishTypes[0].toString()
+        }
+        binding.tvType.text = dishType
+        binding.tvCategory.text = "other"
+
+        var ingredient = ""
+        if (randomDish.extendedIngredients!!.isNotEmpty()) {
+            for (i in randomDish.extendedIngredients) {
+                ingredient  = ingredient + " " + i!!.original
+            }
+        }
+        binding.tvIngredients.text = ingredient
+
+        binding.tvCookingDirection.text = randomDish.instructions
+
+        binding.tvCookingTime.text = randomDish.cookingMinutes.toString()
     }
 
     override fun onDestroyView() {
