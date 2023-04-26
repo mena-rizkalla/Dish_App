@@ -10,7 +10,10 @@ import retrofit2.create
 
 class RandomDishAPIService {
 
-    private val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
+    private val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL)
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+        .build()
 
      private val api = retrofit.create(RandomDishAPI::class.java)
 
