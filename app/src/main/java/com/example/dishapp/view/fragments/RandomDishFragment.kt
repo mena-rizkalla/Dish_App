@@ -5,15 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.*
 import com.bumptech.glide.Glide
+import com.example.dishapp.R
+import com.example.dishapp.application.DishApplication
 import com.example.dishapp.databinding.FragmentRandomDishBinding
+import com.example.dishapp.model.entities.Dish
 import com.example.dishapp.model.entities.RandomDish
+import com.example.dishapp.utils.Constants
 import com.example.dishapp.viewmodel.DishViewModel
+import com.example.dishapp.viewmodel.DishViewModelFactory
 import com.example.dishapp.viewmodel.RandomDishViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -92,6 +96,26 @@ class RandomDishFragment : Fragment() {
         binding.tvCookingDirection.text = randomDish.instructions
 
         binding.tvCookingTime.text = randomDish.cookingMinutes.toString()
+
+        binding.ivFavoriteDish.setOnClickListener {
+            val dish = Dish(
+                randomDish.image!!,
+                Constants.IMAGE_SOURCE_ONLINE,
+                randomDish.title!!,
+                dishType,
+                "others",
+                ingredient,
+                randomDish.cookingMinutes.toString(),
+                randomDish.instructions!!,true)
+
+            val dishViewModel : DishViewModel by viewModels {
+                DishViewModelFactory((requireActivity().application as DishApplication).repository)
+            }
+
+            dishViewModel.insert(dish)
+            binding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_24))
+
+        }
     }
 
     override fun onDestroyView() {
