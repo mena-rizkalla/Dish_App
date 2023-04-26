@@ -11,18 +11,20 @@ object Constants {
 
     const val EXTRA_DISH_DETAIL : String = "DishDetails"
 
+    const val BASE_URL="https://api.spoonacular.com/"
+
     const val API_ENDPOINT :String = "recipes/random"
 
-    const val API_KEY : String = "apikey"
+    const val API_KEY : String = "apiKey"
     const val LIMIT_LICENCE : String = "limitLicence"
     const val TAGS : String = "tags"
     const val NUMBER : String = "number"
 
-    const val BASE_URL="https://api.spoonacular.com/"
-    const val API_KEY_VALUE : String = "8d7e769c704c49e7ab1ba74f8bf49062"
 
+
+    const val API_KEY_VALUE : String = "8d7e769c704c49e7ab1ba74f8bf49062"
     const val LIMIT_LICENCE_VALUE : Boolean = true
-    const val TAGS_VALUE : String = "dessert"
+    const val TAGS_VALUE : String = "vegetarian,dessert"
     const val NUMBER_VALUE : Int = 1
 
     fun dishTypes():ArrayList<String>{

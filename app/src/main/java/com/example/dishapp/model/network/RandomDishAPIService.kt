@@ -10,13 +10,12 @@ import retrofit2.create
 
 class RandomDishAPIService {
 
-    private val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(
-        GsonConverterFactory.create()).addCallAdapterFactory(RxJava3CallAdapterFactory.create()).build()
+    private val retrofit = Retrofit.Builder().baseUrl(Constants.BASE_URL).addConverterFactory(GsonConverterFactory.create()).build()
 
-    private val api = retrofit.create(RandomDishAPI::class.java)
+     private val api = retrofit.create(RandomDishAPI::class.java)
 
     fun getRandomDish() : Single<RandomDish.Recipes>{
-       return api.getRandomDishes(Constants.API_KEY,
+       return api.getRandomDishes(Constants.API_KEY_VALUE,
            Constants.LIMIT_LICENCE_VALUE,
            Constants.TAGS_VALUE,
            Constants.NUMBER_VALUE)

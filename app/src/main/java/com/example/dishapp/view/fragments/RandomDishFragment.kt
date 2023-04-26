@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.asLiveData
+import androidx.lifecycle.lifecycleScope
 import com.example.dishapp.databinding.FragmentRandomDishBinding
 import com.example.dishapp.viewmodel.RandomDishViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class RandomDishFragment : Fragment() {
 
@@ -28,6 +33,12 @@ class RandomDishFragment : Fragment() {
         _binding = FragmentRandomDishBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+
+
+
+
+
+        //Toast.makeText(requireActivity(),notificationsViewModel.getDish().body()!!.recipes!![0]?.dishTypes!!.get(0),Toast.LENGTH_SHORT).show()
         return root
     }
 
