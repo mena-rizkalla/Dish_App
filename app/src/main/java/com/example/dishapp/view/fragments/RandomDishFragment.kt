@@ -40,6 +40,10 @@ class RandomDishFragment : Fragment() {
         _binding = FragmentRandomDishBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        binding.swipeRefresh.setOnRefreshListener {
+            randomDishViewModel.getRandomDishFromAPI()
+            binding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_unfavorite_24))
+        }
 
 
         return root
@@ -56,16 +60,20 @@ class RandomDishFragment : Fragment() {
                 it.recipes!![0]?.let { it1 -> setUI(it1) }
             }
 
+            if (binding.swipeRefresh.isRefreshing){
+                binding.swipeRefresh.isRefreshing = false
+            }
+
         })
         randomDishViewModel.randomDishLoadingError.observe(viewLifecycleOwner , Observer {
             it?.let {
-                Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
             }
         })
 
         randomDishViewModel.randomDishLoaded.observe(viewLifecycleOwner , Observer {
             it?.let {
-                Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+                //Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
             }
         })
 
@@ -97,23 +105,33 @@ class RandomDishFragment : Fragment() {
 
         binding.tvCookingTime.text = randomDish.cookingMinutes.toString()
 
-        binding.ivFavoriteDish.setOnClickListener {
-            val dish = Dish(
-                randomDish.image!!,
-                Constants.IMAGE_SOURCE_ONLINE,
-                randomDish.title!!,
-                dishType,
-                "others",
-                ingredient,
-                randomDish.cookingMinutes.toString(),
-                randomDish.instructions!!,true)
+        binding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(),R.drawable.ic_unfavorite_24))
+        var addedToFavorite = false
 
-            val dishViewModel : DishViewModel by viewModels {
-                DishViewModelFactory((requireActivity().application as DishApplication).repository)
+        binding.ivFavoriteDish.setOnClickListener {
+
+            if (addedToFavorite){
+                Toast.makeText(context,"Added to favourite",Toast.LENGTH_SHORT).show()
+            }else {
+                val dish = Dish(
+                    randomDish.image!!,
+                    Constants.IMAGE_SOURCE_ONLINE,
+                    randomDish.title!!,
+                    dishType,
+                    "others",
+                    ingredient,
+                    randomDish.cookingMinutes.toString(),
+                    randomDish.instructions!!, true
+                )
+
+                val dishViewModel: DishViewModel by viewModels {
+                    DishViewModelFactory((requireActivity().application as DishApplication).repository)
+                }
+                dishViewModel.insert(dish)
+                addedToFavorite = true
+                binding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_24))
             }
 
-            dishViewModel.insert(dish)
-            binding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_24))
 
         }
     }

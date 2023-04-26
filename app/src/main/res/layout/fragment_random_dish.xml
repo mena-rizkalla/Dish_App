@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
     android:fillViewport="true"
-    android:id="@+id/rl_dish_detail_main"
+    android:id="@+id/swipeRefresh"
     tools:context=".view.fragments.RandomDishFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+
+
 
 
     <RelativeLayout
@@ -147,6 +154,6 @@
             tools:text="cooking time" />
 
     </RelativeLayout>
+    </ScrollView>
 
-
-</ScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
