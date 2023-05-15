@@ -1,5 +1,7 @@
 package com.example.dishapp.view.fragments
 
+import android.app.Dialog
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,10 +34,13 @@ class RandomDishFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
+    private var progressDiaog : Dialog? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?): View {
+
 
         _binding = FragmentRandomDishBinding.inflate(inflater, container, false)
         val root: View = binding.root
@@ -47,6 +52,21 @@ class RandomDishFragment : Fragment() {
 
 
         return root
+    }
+
+    private fun showCustomProgressDialog(){
+        progressDiaog = Dialog(requireActivity())
+
+        progressDiaog?.let {
+            it.setContentView(R.layout.dialog_custom_progress)
+            it.show()
+        }
+    }
+
+    private fun hideProgressDialog(){
+        progressDiaog?.let {
+            it.dismiss()
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -63,20 +83,23 @@ class RandomDishFragment : Fragment() {
             if (binding.swipeRefresh.isRefreshing){
                 binding.swipeRefresh.isRefreshing = false
             }
-
         })
+
         randomDishViewModel.randomDishLoadingError.observe(viewLifecycleOwner , Observer {
             it?.let {
                 //Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
             }
         })
-
         randomDishViewModel.randomDishLoaded.observe(viewLifecycleOwner , Observer {
             it?.let {
                 //Toast.makeText(requireContext(),it.toString(),Toast.LENGTH_SHORT).show()
+                if (it && !binding.swipeRefresh.isRefreshing){
+                    showCustomProgressDialog()
+                }else{
+                    hideProgressDialog()
+                }
             }
         })
-
     }
 
     private fun setUI(randomDish : RandomDish.Recipe){
@@ -131,9 +154,8 @@ class RandomDishFragment : Fragment() {
                 addedToFavorite = true
                 binding.ivFavoriteDish.setImageDrawable(ContextCompat.getDrawable(requireActivity(), R.drawable.ic_favorite_24))
             }
-
-
         }
+
     }
 
     override fun onDestroyView() {
