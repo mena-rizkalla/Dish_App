@@ -1,7 +1,6 @@
 package com.example.dishapp.view.fragments
 
 import android.app.Dialog
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -21,9 +20,6 @@ import com.example.dishapp.utils.Constants
 import com.example.dishapp.viewmodel.DishViewModel
 import com.example.dishapp.viewmodel.DishViewModelFactory
 import com.example.dishapp.viewmodel.RandomDishViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class RandomDishFragment : Fragment() {
 
@@ -34,7 +30,7 @@ class RandomDishFragment : Fragment() {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private var progressDiaog : Dialog? = null
+    private var progressDialog : Dialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,16 +51,16 @@ class RandomDishFragment : Fragment() {
     }
 
     private fun showCustomProgressDialog(){
-        progressDiaog = Dialog(requireActivity())
+        progressDialog = Dialog(requireActivity())
 
-        progressDiaog?.let {
+        progressDialog?.let {
             it.setContentView(R.layout.dialog_custom_progress)
             it.show()
         }
     }
 
     private fun hideProgressDialog(){
-        progressDiaog?.let {
+        progressDialog?.let {
             it.dismiss()
         }
     }

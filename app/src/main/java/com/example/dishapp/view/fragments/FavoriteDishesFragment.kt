@@ -44,9 +44,6 @@ class FavoriteDishesFragment : Fragment() {
             binding.rvDishesList.adapter = adapter
         })
 
-
-
-
         return root
     }
 
@@ -57,12 +54,10 @@ class FavoriteDishesFragment : Fragment() {
             (activity as MainActivity?)!!.hideBottomNavigationView()
         }
     }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
-
     override fun onResume() {
         super.onResume()
         if (requireActivity() is MainActivity){
