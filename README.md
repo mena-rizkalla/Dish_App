@@ -25,8 +25,7 @@ Dish App is an Android application that allows users to manage their favorite di
     <td>
       <img src ="https://github.com/mena-rizkalla/Dish_App/assets/52071472/32af41fa-3841-45a6-943f-8ee7d1ed949a"/>
     </td>
-    
- <td> 
+    <td> 
       <img src ="https://github.com/mena-rizkalla/Dish_App/assets/52071472/c3a6ba4d-88f9-439c-a741-e6d622d30dd4"/>
     </td>
     <td>
@@ -35,7 +34,6 @@ Dish App is an Android application that allows users to manage their favorite di
     <td>
       <img src ="https://github.com/mena-rizkalla/Dish_App/assets/52071472/7353b6bd-0451-4023-91cc-0a7e48059fae"/>
     </td>
-
      <td> 
       <img src ="https://github.com/mena-rizkalla/Dish_App/assets/52071472/baefc635-5e32-472c-8da9-f39ac252c279"/>
     </td>
